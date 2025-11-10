@@ -23,6 +23,27 @@
         public void Task2(int[,] matrix) {
             // code here
 
+            var rows = matrix.GetLength(0);
+            var cols = matrix.GetLength(1);
+
+            for (var r = 0; r < rows; r += 1) {
+                var max_c = 0;
+            
+                for (var c = 0; c < cols; c += 1) {
+                    if (matrix[r, c] > matrix[r, max_c]) {
+                        max_c = c;
+                    }
+                }
+
+                var max_item = (double)matrix[r, max_c];
+            
+                for (var c = 0; c < max_c; c += 1) {
+                    if (matrix[r, c] < 0) {
+                        matrix[r, c] = (int)Math.Floor(matrix[r, c] / max_item);
+                    }
+                }
+            }
+
             // end
         }
         public void Task3(int[,] matrix, int k) {
