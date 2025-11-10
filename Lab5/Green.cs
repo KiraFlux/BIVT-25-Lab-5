@@ -4,10 +4,22 @@
             int[] answer = null;
             // code here
 
+            var rows = matrix.GetLength(0);
+            var cols = matrix.GetLength(1);
+            answer = new int[rows];
+
+            for (var r = 0; r < rows; r += 1) {
+                for (var c = 0; c < cols; c += 1) {
+                    if (matrix[r, c] < matrix[r, answer[r]]) {
+                        answer[r] = c;
+                    }
+                }
+            }
+
             // end
             return answer;
         }
-        
+
         public void Task2(int[,] matrix) {
             // code here
 

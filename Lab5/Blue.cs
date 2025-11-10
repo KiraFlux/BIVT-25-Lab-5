@@ -88,10 +88,10 @@
             int[,] answer = null;
             // code here
 
-            var rows = matrix.GetLength(0);
-            var cols = matrix.GetLength(1);
+            // var rows = matrix.GetLength(0);
+            // var cols = matrix.GetLength(1);
 
-            answer
+            // answer
 
             // end
             return answer;
