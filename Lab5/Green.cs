@@ -114,7 +114,7 @@ Answer: Matrix [4x4]
  1      2       4       5
  6     11       6       6
 -1      4      -5       7
- 1      4       5      11
+ 1      4       5      11 --- Ошибка, пропал элемент =(-6)
             */
 
             /*
@@ -136,11 +136,44 @@ Answer: Matrix [4x4]
         }
         public int[,] Task5(int[,] matrix) {
             int[,] answer = null;
-
             // code here
 
-            // end
+            var rows = matrix.GetLength(0);
+            var cols = matrix.GetLength(1);
 
+            var target_row_index = 0;
+            var target_row_items_sum = 0;
+
+            for (var r = 0; r < rows; r += 1) {
+                var current_row_items_sum = 0;
+                for (var c = 0; c < cols; c += 1) {
+                    var item = matrix[r, c];
+                    if (item > 0) {
+                        current_row_items_sum += item;
+                    }
+                }
+
+                if (current_row_items_sum > target_row_items_sum) {
+                    target_row_index = r;
+                    target_row_items_sum = current_row_items_sum;
+                }
+            }
+
+            answer = new int[rows - 1, cols];
+
+            for (var r = 0; r < target_row_index; r += 1) {
+                for (var c = 0; c < cols; c += 1) {
+                    answer[r, c] = matrix[r, c];
+                }
+            }
+
+            for (var r = target_row_index + 1; r < rows; r += 1) {
+                for (var c = 0; c < cols; c += 1) {
+                    answer[r - 1, c] = matrix[r, c];
+                }
+            }
+
+            // end
             return answer;
         }
         public void Task6(int[,] matrix) {
