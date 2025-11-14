@@ -1,4 +1,6 @@
-﻿namespace Lab5 {
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Lab5 {
     public class Green {
         public int[] Task1(int[,] matrix) {
             int[] answer = null;
@@ -177,11 +179,41 @@ Answer: Matrix [4x4]
             return answer;
         }
         public void Task6(int[,] matrix) {
-
             // code here
 
-            // end
+            var rows = matrix.GetLength(0);
+            var cols = matrix.GetLength(1);
 
+            var row_negative_items_map = new int[rows];
+
+            for (var r = 0; r < rows; r += 1) {
+                for (var c = 0; c < cols; c += 1) {
+                    if (matrix[r, c] < 0) {
+                        row_negative_items_map[r] += 1;
+                    }
+                }
+            }
+
+            var min_negatives_index = 0;
+            var max_negatives_index = 0;
+
+            for (var r = 0; r < rows; r += 1) {
+                var item = row_negative_items_map[r];
+
+                if (row_negative_items_map[min_negatives_index] < item) {
+                    min_negatives_index = r;
+                }
+
+                if (row_negative_items_map[max_negatives_index] > item) {
+                    max_negatives_index = r;
+                }
+            }
+
+            for (var c = 0; c < cols; c += 1) {
+                (matrix[min_negatives_index, c], matrix[max_negatives_index, c]) = (matrix[max_negatives_index, c], matrix[min_negatives_index, c]);
+            }
+
+            // end
         }
         public int[,] Task7(int[,] matrix, int[] array) {
             int[,] answer = null;
