@@ -244,7 +244,7 @@ Answer: Matrix [4x4]
                 }
 
                 answer[r, min_item_col + 1] = array[r];
-                
+
                 for (var c = min_item_col + 1; c < cols; c += 1) {
                     answer[r, c + 1] = matrix[r, c];
                 }
@@ -254,18 +254,31 @@ Answer: Matrix [4x4]
             return answer;
         }
         public void Task8(int[,] matrix) {
-
             // code here
 
-            // end
 
+
+            // end
         }
         public void Task9(int[,] matrix) {
-
             // code here
 
-            // end
+            var size = matrix.GetLength(0);
 
+            if (size != matrix.GetLength(1)) {
+                return;
+            }
+
+            var last_index = size - 1;
+
+            for (var i = 0; i < size; i += 1) {
+                matrix[0, i] = 0;
+                matrix[last_index, i] = 0;
+                matrix[i, 0] = 0;
+                matrix[i, last_index] = 0;
+            }
+
+            // end
         }
         public (int[] A, int[] B) Task10(int[,] matrix) {
             int[] A = null, B = null;
