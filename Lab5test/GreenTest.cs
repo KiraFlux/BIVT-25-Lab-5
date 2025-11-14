@@ -190,12 +190,12 @@
             for (int i = 0; i < answer.Length; i++) {
                 Console.WriteLine($"Test {i}");
 
-                Console.WriteLine($"Input: {displayMatrix(input[i])}");
+                Console.WriteLine($"Input: {StringFromMatrix(input[i])}");
 
                 _main.Task3(input[i], inputk[i]);
-                Console.WriteLine($"Output: {displayMatrix(input[i])}");
+                Console.WriteLine($"Output: {StringFromMatrix(input[i])}");
 
-                Console.WriteLine($"Answer: {displayMatrix(answer[i])}\n");
+                Console.WriteLine($"Answer: {StringFromMatrix(answer[i])}\n");
 
                 Assert.AreEqual(answer[i].GetLength(0), input[i].GetLength(0));
                 for (int j = 0; j < answer[i].GetLength(0); j++) {
@@ -279,14 +279,14 @@
 
                 Console.WriteLine($"Test {i}");
 
-                Console.WriteLine($"Input: {displayMatrix(input[i])}");
+                Console.WriteLine($"Input: {StringFromMatrix(input[i])}");
                 if (i == 3) {
                     _ = 10;
                 }
                 _main.Task4(input[i]);
-                Console.WriteLine($"Output: {displayMatrix(input[i])}");
+                Console.WriteLine($"Test: {StringFromMatrix(input[i])}");
 
-                Console.WriteLine($"Answer: {displayMatrix(answer[i])}\n");
+                Console.WriteLine($"Answer: {StringFromMatrix(answer[i])}\n");
 
                 Assert.AreEqual(answer[i].GetLength(0), input[i].GetLength(0));
                 for (int j = 0; j < answer[i].GetLength(0); j++) {
@@ -528,17 +528,24 @@
                 }
                 };
             var test = new int[answer.Length][,];
-            // Act
-            for (int i = 0; i < answer.Length; i++) {
-                test[i] = _main.Task7(input[i], inputArray[i]);
-            }
             // Assert
             for (int i = 0; i < answer.Length; i++) {
+                Console.WriteLine($"Test: {i}");
+
+                Console.WriteLine($"InputArray: {StringFromArray(inputArray[i])}");
+                Console.WriteLine($"Input: {StringFromMatrix(input[i])}");
+
+                test[i] = _main.Task7(input[i], inputArray[i]);
+                Console.WriteLine($"Test: {StringFromMatrix(test[i])}");
+
+                Console.WriteLine($"Answer: {StringFromMatrix(answer[i])}\n");
+
                 Assert.AreEqual(answer[i].GetLength(0), test[i].GetLength(0));
+
                 for (int j = 0; j < answer[i].GetLength(0); j++) {
                     Assert.AreEqual(answer[i].GetLength(1), test[i].GetLength(1));
                     for (int k = 0; k < answer[i].GetLength(1); k++) {
-                        Assert.AreEqual(answer[i][j, k], test[i][j, k]);
+                        Assert.AreEqual(answer[i][j, k], test[i][j, k], E, $"Test {i}, row={j}, col={k}");
                     }
                 }
             }
@@ -889,12 +896,20 @@
             }
         }
 
-        private string displayMatrix<T>(T[,] matrix) {
+        private static string StringFromArray<T>(T[] array) {
+            return $"Array[{array.Length}]\n" + string.Join('\t', array) + '\n';
+        }
+
+        private static string StringFromMatrix<T>(T[,]? matrix, bool hide_non_squares = false) {
+            if (matrix == null) {
+                return "Matrix?";
+            }
+
             var rows = matrix.GetLength(0);
             var cols = matrix.GetLength(1);
-            var buffer = $"Matrix [{rows}x{cols}]\n";
+            var buffer = $"Matrix[{rows},{cols}]\n";
 
-            if (rows != cols) { return buffer; }
+            if (hide_non_squares && rows != cols) { return buffer; }
 
             for (var i = 0; i < rows; i += 1) {
                 for (var j = 0; j < cols; j += 1) {
