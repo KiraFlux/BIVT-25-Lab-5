@@ -256,7 +256,63 @@ Answer: Matrix [4x4]
         public void Task8(int[,] matrix) {
             // code here
 
+            /*
+            [Test08] Test 0
+Input: Matrix[5,7]
+1       2       3       4       5       6       7
+5       6       7       8       9       10      11
+9       10      11      12      13      14      15
+13      14      15      16      17      18      19
+0       1       2       3       4       5       6
 
+Output: Matrix[5,7]
+1       2       3       4       5       6       0
+5       6       7       8       9       10      0
+9       10      11      12      13      14      0
+13      14      15      16      17      18      0
+0       1       2       3       4       5       0
+
+Answer: Matrix[5,7]
+1       2       3       4       5       6       7
+5       6       7       8       9       10      11
+9       10      11      12      13      14      15
+0       0       0       0       0       0       0
+0       1       2       3       4       5       6
+            */
+
+            var rows = matrix.GetLength(0);
+            var cols = matrix.GetLength(1);
+
+            for (var r = 0; r < rows; r += 1) {
+                var negative_items = 0;
+                var positive_items = 0;
+                
+                var max_item_index = 0;
+
+                for (var c = 0; c < cols; c += 1) {
+                    var item = matrix[r, c];
+
+                    if (item > 0) {
+                        positive_items += 1;
+                    }
+
+                    if (item < 0) {
+                        negative_items += 1;
+                    }
+
+                    if (item > matrix[r, max_item_index]) {
+                        max_item_index = c;
+                    }
+                }
+
+                if (positive_items > negative_items) {
+                    matrix[r, max_item_index] = 0;
+                }
+
+                if (positive_items < negative_items) {
+                    matrix[r, max_item_index] = r;
+                }
+            }
 
             // end
         }

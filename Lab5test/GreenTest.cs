@@ -280,9 +280,6 @@
                 Console.WriteLine($"Test {i}");
 
                 Console.WriteLine($"Input: {StringFromMatrix(input[i])}");
-                if (i == 3) {
-                    _ = 10;
-                }
                 _main.Task4(input[i]);
                 Console.WriteLine($"Test: {StringFromMatrix(input[i])}");
 
@@ -613,15 +610,20 @@
             };
             // Act
             for (int i = 0; i < answer.Length; i++) {
+                Console.WriteLine($"Test {i}");
+
+                Console.WriteLine($"Input: {StringFromMatrix(input[i])}");
                 _main.Task8(input[i]);
-            }
-            // Assert
-            for (int i = 0; i < answer.Length; i++) {
+
+                Console.WriteLine($"Output: {StringFromMatrix(input[i])}");
+
+                Console.WriteLine($"Answer: {StringFromMatrix(answer[i])}\n");
+
                 Assert.AreEqual(answer[i].GetLength(0), input[i].GetLength(0));
                 for (int j = 0; j < answer[i].GetLength(0); j++) {
                     Assert.AreEqual(answer[i].GetLength(1), input[i].GetLength(1));
                     for (int k = 0; k < answer[i].GetLength(1); k++) {
-                        Assert.AreEqual(answer[i][j, k], input[i][j, k]);
+                        Assert.AreEqual(answer[i][j, k], input[i][j, k], E, $"Test {i}, row={j}, col={k}");
                     }
                 }
             }
