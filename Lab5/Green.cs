@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.Design.Serialization;
+using System.Diagnostics.CodeAnalysis;
+using System.Transactions;
 
 namespace Lab5 {
     public class Green {
@@ -372,11 +374,38 @@ Answer: Matrix [4x4]
 
         }
         public void Task12(int[][] array) {
-
             // code here
 
-            // end
+            var n = array.Length - 1;
 
+            for (var i = 0; i <= n; i += 1) {
+
+                bool skip = true;
+                for (var j = 0; i + j < n; j += 1) {
+                    // 
+                    ref var a = ref array[j];
+                    ref var b = ref array[j + 1];
+
+                    var key_a = a.Length;
+                    var key_b = b.Length;
+
+                    if (key_a == key_b) {
+                        key_a = a.Sum();
+                        key_b = b.Sum();
+                    }
+
+                    if (key_a < key_b) {
+                        (b, a) = (a, b);
+                        skip = false;
+                    }
+                }
+
+                if (skip) {
+                    break;
+                }
+            }
+
+            // end
         }
     }
 }
