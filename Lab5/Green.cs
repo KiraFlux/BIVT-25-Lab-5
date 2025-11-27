@@ -367,11 +367,28 @@ Answer: Matrix [4x4]
             return (A, B);
         }
         public void Task11(int[,] matrix) {
-
             // code here
-
+            
+            if (null == matrix) { return; }
+             
+            var rows = matrix.GetLength(0);
+            var cols = matrix.GetLength(1);
+            
+            for (var j = 0; j < cols; j += 1) {
+            	for (var i = 0; i < rows - 1; i += 1) {
+            		ref var a = ref matrix[i, j];
+            		
+            		for (var k = i + 1; k < rows; k += 1) {
+            			ref var b = ref matrix[k, j];
+            			
+            			if ((j % 2 == 0) ? (a < b) : (a > b)) {
+            				(a, b) = (b, a);
+            			}
+            		}
+            	} 
+            }
+            
             // end
-
         }
         public void Task12(int[][] array) {
             // code here
@@ -408,4 +425,5 @@ Answer: Matrix [4x4]
             // end
         }
     }
+
 }
